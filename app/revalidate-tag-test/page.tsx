@@ -11,7 +11,7 @@ const getStableRandomNumber2 = unstable_cache(
     return Math.random();
   },
   ["random-number-2"],
-  { tags: ["random-number-2"] }
+  { tags: ["random-number-2"], revalidate: Infinity }
 );
 
 const RevalidateTagTest = async () => {
