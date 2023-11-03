@@ -1,0 +1,38 @@
+import { Button } from "#/app/button";
+import { revalidateTag, unstable_cache } from "next/cache";
+import { redirect } from "next/navigation";
+
+export const dynamic = "force-dynamic";
+
+const getStableRandomNumber2 = unstable_cache(
+  async () => {
+    await new Promise((res) => setTimeout(res, 2000));
+
+    return Math.random();
+  },
+  ["random-number-2"],
+  { tags: ["random-number-2"] }
+);
+
+const RevalidateTagTest = async () => {
+  const randomNumber = await getStableRandomNumber2();
+
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-evenly p-24">
+      <p>Stable random number: {randomNumber}</p>
+      <form
+        action={async () => {
+          "use server";
+
+          revalidateTag("random-number-2");
+          redirect("/revalidate-tag-test");
+        }}
+      >
+        <button>Refresh random number</button>
+      </form>
+      <Button></Button>
+    </main>
+  );
+};
+
+export default RevalidateTagTest;
