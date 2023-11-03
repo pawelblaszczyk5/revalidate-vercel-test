@@ -1,5 +1,5 @@
 import { Button } from "#/app/button";
-import { revalidatePath, unstable_cache } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 const RevalidatePathTest = async () => {
