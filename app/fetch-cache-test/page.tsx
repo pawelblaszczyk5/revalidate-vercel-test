@@ -1,8 +1,6 @@
 import { Button } from "#/app/button";
-import { revalidateTag } from "next/cache";
+import { revalidateTag, unstable_noStore } from "next/cache";
 import { redirect } from "next/navigation";
-
-export const dynamic = "force-dynamic";
 
 const fetchRandomNumberFromApi = async () => {
   const response = await fetch(
@@ -18,6 +16,8 @@ const fetchRandomNumberFromApi = async () => {
 };
 
 const RevalidateTagTest = async () => {
+  unstable_noStore();
+
   const randomNumber = await fetchRandomNumberFromApi();
 
   return (
